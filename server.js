@@ -358,6 +358,18 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Python/cv2 diagnostic
+app.get('/health/python', async (req, res) => {
+  const { spawn } = require('child_process');
+  const proc = spawn('python3', ['-c', 'import cv2; print("cv2 OK:", cv2.__version__); import sys; print("python:", sys.executable)']);
+  let out = '', err = '';
+  proc.stdout.on('data', d => out += d);
+  proc.stderr.on('data', d => err += d);
+  proc.on('close', code => {
+    res.json({ code, stdout: out.trim(), stderr: err.trim() });
+  });
+});
+
 // Global error handler — never crash
 app.use((err, req, res, _next) => {
   console.error('[server] Unhandled error:', err.message);
