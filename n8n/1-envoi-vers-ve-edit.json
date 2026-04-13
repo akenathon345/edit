@@ -1,0 +1,292 @@
+{
+  "name": "1️⃣ - RETOUR EDIT AUTO : Envoi vers VE Edit",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e7c3a8f2-9d4b-4e1c-8a6f-2b5d9c0a3e7f",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        0
+      ],
+      "id": "0a295cf8-a445-4965-9778-b0af5edcdbe0",
+      "name": "Webhook",
+      "webhookId": "e7c3a8f2-9d4b-4e1c-8a6f-2b5d9c0a3e7f"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ddb2d504-630d-4928-a23b-c7e9b26e805d",
+              "name": "id_asset_frame",
+              "value": "={{ \n(($json.body.data.properties['MONTÉE']?.files?.[0]?.name?.match(/[0-9a-f-]{36}/g)) || []).pop() || ''\n}}",
+              "type": "string"
+            },
+            {
+              "id": "b34035c6-2cdb-46c1-8546-77393cf95042",
+              "name": "notion_content_id",
+              "value": "={{ $json.body.data.id }}",
+              "type": "string"
+            },
+            {
+              "id": "c45146d7-3bf7-47d9-9657-88494df96153",
+              "name": "title",
+              "value": "={{ $json.body.data.properties.Name.title[0].plain_text }}",
+              "type": "string"
+            },
+            {
+              "id": "d56257e8-4ca8-58ea-a768-99505ef07264",
+              "name": "client_page_id",
+              "value": "={{ $json.body.data.properties.CLIENTS?.relation?.[0]?.id || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "be4a941c-2ae6-4578-9a30-d761709a6f18",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.frame.io/v4/accounts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        464,
+        0
+      ],
+      "id": "28358cb3-ddeb-42db-9254-3666292afb87",
+      "name": "Get accounts frame.io v4",
+      "credentials": {
+        "oAuth2Api": {
+          "id": "WYu2jEUYo1aaB8ff",
+          "name": "Frame.io v4 jesuisunsupermonteur"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.frame.io/v4/accounts/{{ $json.data[0].id }}/files/{{ $('Edit Fields1').item.json.id_asset_frame }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "include",
+              "value": "=media_links,media_links.original,media_links.thumbnail,media_links.video_h264_180,media_links.high_quality,media_links.efficient,creator,project,project.owner"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        688,
+        0
+      ],
+      "id": "d48dd671-ec82-4c40-9817-e86c183cb578",
+      "name": "Get asset frame.io v4",
+      "retryOnFail": false,
+      "maxTries": 5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "z18RZF9avuEpY8Dk",
+          "name": "Frame.io clement ssb"
+        },
+        "httpHeaderAuth": {
+          "id": "wUXfPiltUi4QY1XR",
+          "name": "n8n accessKey"
+        },
+        "oAuth2Api": {
+          "id": "WYu2jEUYo1aaB8ff",
+          "name": "Frame.io v4 jesuisunsupermonteur"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "get",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Edit Fields1').item.json.client_page_id }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        912,
+        0
+      ],
+      "id": "84c1e7bf-3883-4c49-abfe-902687a87de6",
+      "name": "Get client page",
+      "credentials": {
+        "notionApi": {
+          "id": "Y5xiKj8LvqsL3bSr",
+          "name": "PRSNL 2026"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Récupère le nom du client depuis la page Notion liée et fabrique un slug stable.\n// Le node Notion v2.2 expose le titre à plat sous `name` (et aussi `property_name`).\nconst page = $input.first().json;\n\nconst clientName = page?.name || page?.property_name || 'unknown';\n\n// Slugify : minuscules, sans accents, espaces multiples → tiret simple\nconst slug = String(clientName)\n  .trim()\n  .toLowerCase()\n  .normalize('NFD')\n  .replace(/[\\u0300-\\u036f]/g, '')\n  .replace(/[^a-z0-9]+/g, '-')\n  .replace(/^-+|-+$/g, '')\n  .slice(0, 80);\n\nreturn [{\n  json: {\n    client_name: clientName,\n    client_slug: slug || 'unknown',\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        0
+      ],
+      "id": "3d758721-da6e-4afd-b8a7-624812aa58e1",
+      "name": "Build client_slug"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.VE_EDIT_API_URL || 'http://localhost:3002' }}/ve-edit",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"video_url\": \"{{ $('Get asset frame.io v4').item.json.data.media_links.efficient.download_url }}\",\n  \"client_slug\": \"{{ $json.client_slug }}\",\n  \"version\": \"VM1\",\n  \"take\": \"T1\",\n  \"title\": \"{{ $('Edit Fields1').item.json.title }}\",\n  \"notion-content-id\": \"{{ $('Edit Fields1').item.json.notion_content_id }}\",\n  \"callback_url\": \"https://automation.prsnl.fr/webhook/f8d4b9a3-0e5c-4f2d-9b7a-3c6e0d1b4f8a\"\n}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1360,
+        0
+      ],
+      "id": "9ab6f2ff-a234-4feb-a618-c576b8e14b00",
+      "name": "POST /ve-edit"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Get accounts frame.io v4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get accounts frame.io v4": {
+      "main": [
+        [
+          {
+            "node": "Get asset frame.io v4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get asset frame.io v4": {
+      "main": [
+        [
+          {
+            "node": "Get client page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get client page": {
+      "main": [
+        [
+          {
+            "node": "Build client_slug",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build client_slug": {
+      "main": [
+        [
+          {
+            "node": "POST /ve-edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "3c7d94fe-baa4-4d42-930d-ea940f06b3f0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2fe75a2025924c9b671167c0ad150fdf83b6e0b750e0d48ea6613c8aa486f631"
+  },
+  "id": "5DppZzCICNqK4W3e",
+  "tags": []
+}

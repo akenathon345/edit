@@ -1,0 +1,203 @@
+{
+  "name": "2️⃣ - RETOUR EDIT AUTO : Gestion retour de VE Edit",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "f8d4b9a3-0e5c-4f2d-9b7a-3c6e0d1b4f8a",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "828d4d0c-4054-41ab-becc-02f3f19c0185",
+      "name": "Webhook",
+      "webhookId": "f8d4b9a3-0e5c-4f2d-9b7a-3c6e0d1b4f8a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f48cd597-4e81-4dd1-804e-13315c3b60a5",
+              "name": "body.title",
+              "value": "={{ $json.body.title }}",
+              "type": "string"
+            },
+            {
+              "id": "548495a5-9f2c-4c7d-bfc4-ab1b8ae4c4f1",
+              "name": "body['notion-content-id']",
+              "value": "={{ $json.body['notion-content-id'] }}",
+              "type": "string"
+            },
+            {
+              "id": "e31da1cc-0123-4e18-9e27-2f55985d4ea0",
+              "name": "body.markdown",
+              "value": "={{ $json.body.markdown }}",
+              "type": "string"
+            },
+            {
+              "id": "f42eb2dd-1234-5f29-a038-3066096e5fb1",
+              "name": "body.success",
+              "value": "={{ $json.body.success }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "26c87133-b295-4d00-88b2-1f840dfc6d92",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "get",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $json.body['notion-content-id'] }}",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "84c1e7bf-3883-4c49-abfe-902687a87de7",
+      "name": "Get a database page",
+      "credentials": {
+        "notionApi": {
+          "id": "Y5xiKj8LvqsL3bSr",
+          "name": "PRSNL 2026"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "349de262-b683-4b6e-bd07-6becd0118a92",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "442066bb-d8cf-4952-9633-2f0c52e73a0d",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        592,
+        0
+      ],
+      "id": "a90dbffb-2354-4302-8444-1f100e11b94e",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const NOTION_TOKEN = \"YOUR_NOTION_TOKEN_HERE\";\nconst pageId = $input.first().json.id;\n\n// 👉 Texte source : markdown généré par VE Edit\nconst texte = $('Edit Fields').first().json.body.markdown || \"Pas de retour\";\n\nif (!texte || texte.trim() === \"\") {\n  throw new Error(\"Le champ markdown est vide\");\n}\n\n// Notion limites :\n//  - 2000 chars max par élément rich_text\n//  - 100 éléments max par propriété\n// → On chunke direct le texte entier en blocs de 2000c.\n// → Les \\n sont préservés à l'intérieur d'un chunk, donc le markdown reste lisible.\n// → 16k chars = 8 éléments, largement sous la limite de 100.\n\nfunction splitIntoChunks(text, maxLength = 2000) {\n  const chunks = [];\n  let start = 0;\n  while (start < text.length) {\n    chunks.push(text.slice(start, start + maxLength));\n    start += maxLength;\n  }\n  return chunks;\n}\n\nconst chunks = splitIntoChunks(texte);\n\n// Hard cap à 100 éléments par sécurité (Notion rejetterait au-delà)\nif (chunks.length > 100) {\n  chunks.length = 100;\n}\n\nconst rich_text = chunks.map(chunk => ({\n  type: \"text\",\n  text: { content: chunk }\n}));\n\n// Update Notion — propriété \"retouredit\"\nawait this.helpers.httpRequest({\n  method: 'PATCH',\n  url: `https://api.notion.com/v1/pages/${pageId}`,\n  headers: {\n    Authorization: `Bearer ${NOTION_TOKEN}`,\n    'Notion-Version': '2022-06-28',\n    'Content-Type': 'application/json'\n  },\n  body: {\n    properties: {\n      \"retouredit\": {\n        rich_text: rich_text\n      }\n    }\n  },\n  json: true\n});\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        0
+      ],
+      "id": "eb59b7f3-42ea-40b5-add8-530992573b2d",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Get a database page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a database page": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2b6b93ec-baa4-4d42-930d-ea940f06b3f0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2fe75a2025924c9b671167c0ad150fdf83b6e0b750e0d48ea6613c8aa486f631"
+  },
+  "id": "5DppZzCICNqK4W3f",
+  "tags": []
+}

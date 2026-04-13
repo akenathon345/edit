@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+.DS_Store
+npm-debug.log
+/tmp/
+scripts/bluedot/out/
+scripts/bluedot/cookies.txt
+scripts/guidelines/out/

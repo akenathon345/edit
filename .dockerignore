@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+.env
+.env.local
+.git
+.gitignore
+.DS_Store
+scripts/bluedot/out
+scripts/bluedot/cookies.txt
+scripts/guidelines/out
+docs
+n8n
+*.md
+!data/SKILL.md
+!data/GUIDELINES-BASE.md
+sql
+/tmp

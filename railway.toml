@@ -1,0 +1,18 @@
+# Railway deployment config — https://docs.railway.app/reference/config-as-code
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "node server.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+# Required env vars (set via Railway dashboard, do NOT commit them):
+#   ANTHROPIC_API_KEY
+#   SUPABASE_URL
+#   SUPABASE_KEY
+#   PORT (Railway sets this automatically)
