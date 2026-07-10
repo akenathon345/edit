@@ -67,9 +67,10 @@ function downloadVideo(url, destPath, _depth = 0) {
 const app = express();
 const PORT = process.env.PORT || 3002;
 const BUNDLE_TMP_DIR = process.env.BUNDLE_TMP_DIR || '/tmp/ve-edit-bundles';
+const UPLOADS_DIR = path.join(BUNDLE_TMP_DIR, 'uploads');
 
-// Ensure tmp dir exists
-fs.mkdirSync(BUNDLE_TMP_DIR, { recursive: true });
+// Ensure tmp dirs exist (uploads/ requis par multer — ENOENT sinon sur container frais)
+fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
 app.use((req, res, next) => {
   express.json({ limit: '50mb' })(req, res, (err) => {
@@ -392,6 +393,8 @@ app.listen(PORT, () => {
   // Periodic /tmp cleanup every 30 minutes
   const { cleanupOldFiles } = require('./lib/cleanup');
   setInterval(() => {
-    cleanupOldFiles(BUNDLE_TMP_DIR, 2 * 60 * 60 * 1000); // 2h max age
+    cleanupOldFiles(BUNDLE_TMP_DIR, 2 * 60 * 60 * 1000); // 2h max age (peut évincer uploads/ si inactif)
+    cleanupOldFiles(UPLOADS_DIR, 2 * 60 * 60 * 1000);    // sweep des vidéos orphelines dans uploads/
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });      // self-heal : multer exige que le dossier existe
   }, 30 * 60 * 1000);
 });
