@@ -1,0 +1,282 @@
+[
+  {
+    "slug": "jonathan-baruchel",
+    "id": "69a93907d9c618f54e3dc476",
+    "title": "RDV Éditorial PRSNL - Jonathan Baruchel"
+  },
+  {
+    "slug": "ilona-adjeriou",
+    "id": "69f88b5bdb1004be488a0d6d",
+    "title": "RDV Éditorial PRSNL - Ilona ADJERIOU"
+  },
+  {
+    "slug": "valentine-mattei-belgodere",
+    "id": "69b9434cea1d63f14dab624c",
+    "title": "RDV Éditorial PRSNL - Valentine MATTEI-BELGODERE"
+  },
+  {
+    "slug": "florence-benhamou",
+    "id": "69b2d829abbddf0529ca0e96",
+    "title": "RDV Éditorial PRSNL - Florence BENHAMOU"
+  },
+  {
+    "slug": "steven-le-hyaric",
+    "id": "69a00dd8750c95ad477ca201",
+    "title": "RDV Éditorial PRSNL - Stéven LE HYARIC"
+  },
+  {
+    "slug": "matthieu-innocenti",
+    "id": "6984a2ab32db77926df39224",
+    "title": "RDV Éditorial PRSNL - Matthieu INNOCENTI"
+  },
+  {
+    "slug": "thomas-vergnaud",
+    "id": "69cb782f0744d986bb1a318c",
+    "title": "RDV Éditorial PRSNL - Thomas VERGNAUD"
+  },
+  {
+    "slug": "rodolphe-tissier",
+    "id": "69775750f509abdb131a0d0a",
+    "title": "RDV Éditorial PRSNL - Rodolphe TISSIER"
+  },
+  {
+    "slug": "tatum-jasmin",
+    "id": "69666c1a86c0b47b5b750a10",
+    "title": "Tatum Jasmin - Morgane"
+  },
+  {
+    "slug": "nelly-darbois",
+    "id": "6929574d436e6159e1dbc8d7",
+    "title": "Nelly Darbois et Raul Magni Berton et Philippine"
+  },
+  {
+    "slug": "sarah-torche",
+    "id": "69cd091d805ec9be9e52a477",
+    "title": "RDV Éditorial PRSNL - Sarah TORCHE"
+  },
+  {
+    "slug": "magali-touroude",
+    "id": "69c2b616e6ac24407911b0c2",
+    "title": "RDV EDITORIAL - Magalie Touroude - Agence Personnelle."
+  },
+  {
+    "slug": "maxime-d-hondt",
+    "id": "69afdf1adfebf21ce17a8c25",
+    "title": "RDV Éditorial PRSNL - Maxime D'HONDT"
+  },
+  {
+    "slug": "ilona-visan",
+    "id": "69d331f8fc071ffb669a0e81",
+    "title": "RDV Éditorial PRSNL - Ilona VISAN"
+  },
+  {
+    "slug": "mickael-zonta",
+    "id": "69567143bf506468f013e35a",
+    "title": "Mickael Zonta x Morgane"
+  },
+  {
+    "slug": "xavier-joinau",
+    "id": "69c252df4b486e301963afff",
+    "title": "RDV Éditorial PRSNL - Xavier JOINAU"
+  },
+  {
+    "slug": "jean-paul-meningaud",
+    "id": "69ca3bfa638075a5bdb90dda",
+    "title": "RDV Éditorial PRSNL - Jean-Paul MENINGAUD"
+  },
+  {
+    "slug": "mathias-barthes",
+    "id": "699d5a6e452dc478e56b7cc6",
+    "title": "RDV Éditorial PRSNL - Mathias BARTHES"
+  },
+  {
+    "slug": "jessica-belmonte",
+    "id": "696f2fcdf7006933eac0501a",
+    "title": "Jessica BELMONTE and Morgane Stella"
+  },
+  {
+    "slug": "ac-conciergerie",
+    "id": "694521fc07d15a4846288bd9",
+    "title": "Céline Andreozzi - AC Conciergerie 2/2"
+  },
+  {
+    "slug": "rafi-mouhamad",
+    "id": "69773b2fff51f8b37b96dc57",
+    "title": "Rafi MOUHAMAD and Morgane Stella"
+  },
+  {
+    "slug": "bentahar-amele",
+    "id": "69610dd2b256fcc97af86267",
+    "title": "Amele Bentahar - Morgane"
+  },
+  {
+    "slug": "marc-bailly",
+    "id": "69b01606c1e54aa57243ac8f",
+    "title": "RDV Éditorial PRSNL - Marc BAILLY"
+  },
+  {
+    "slug": "matthieu-le-bihan",
+    "id": "69b2e64bb5ccfb58300d378d",
+    "title": "RDV Éditorial PRSNL - Matthieu Le Bihan"
+  },
+  {
+    "slug": "sonia-djeridi",
+    "id": "6985c4f6e9bbfc1db2b24e1f",
+    "title": "RDV Éditorial PRSNL - Djeridi Sonia"
+  },
+  {
+    "slug": "roseleyne-belkhodja",
+    "id": "6953f8274bc0b30fbb479def",
+    "title": "Roseleyne Belkhodja and Philippine FRANCOIS"
+  },
+  {
+    "slug": "jessie-teston",
+    "id": "6964fee7096a5c78b8af061d",
+    "title": "Jessie Teston x Fabien"
+  },
+  {
+    "slug": "rachid-drissi",
+    "id": "69bbfad4c52556df34cea2b5",
+    "title": "RDV Éditorial PRSNL - Rachid DRISSI"
+  },
+  {
+    "slug": "valerie-espinasse",
+    "id": "69a82f3b018a644cbe41b51b",
+    "title": "RDV Éditorial PRSNL - Valerie ESPINASSE"
+  },
+  {
+    "slug": "kine-sene-guillon",
+    "id": "69b81be7bc1417c9f0d5a22b",
+    "title": "RDV Éditorial PRSNL - Kiné SENE GUILLON"
+  },
+  {
+    "slug": "theo-toledano",
+    "id": "69c64776a40e9a83b9047b1f",
+    "title": "RDV Éditorial PRSNL - Theo TOLEDANO"
+  },
+  {
+    "slug": "magali-sciallano",
+    "id": "69a594c16eae2de4ba2952da",
+    "title": "RDV Éditorial PRSNL - Magali SCIALLANO"
+  },
+  {
+    "slug": "wael-mechri-yvers",
+    "id": "69256fe9461152f632327e45",
+    "title": "Waël MECHRI YVERS et Valentin"
+  },
+  {
+    "slug": "david-fitousssi",
+    "id": "698b55502bf9f3d2cc7ccfd6",
+    "title": "RDV Éditorial PRSNL - David FITOUSSSI"
+  },
+  {
+    "slug": "cyrille-pavy",
+    "id": "69d48f41bfe1806fa8920806",
+    "title": "RDV Éditorial PRSNL - Cyrille PAVY"
+  },
+  {
+    "slug": "jerome-bilquey",
+    "id": "691b4034b9c44e9f4f83929f",
+    "title": "Jérome BILQUEY et Philippine"
+  },
+  {
+    "slug": "eliane-tordjmann",
+    "id": "69244887a2b88e27ed3179e0",
+    "title": "Eliane TORDJMANN et Valentin"
+  },
+  {
+    "slug": "gisele-maneken-tadah",
+    "id": "69baa2e29b529b99f1aef1e5",
+    "title": "RDV Éditorial PRSNL - Gisèle MANEKEN TADAH"
+  },
+  {
+    "slug": "manon-crescimbene",
+    "id": "69ce274e2660e40db075540d",
+    "title": "RDV Éditorial PRSNL - Manon CRESCIMBENE"
+  },
+  {
+    "slug": "nacim-khalaf",
+    "id": "69a84c26fd580b0e0a591f03",
+    "title": "RDV Éditorial PRSNL - Nacim KHALAF"
+  },
+  {
+    "slug": "jean-luc-luc-medina",
+    "id": "69933e859573a492905b893b",
+    "title": "RDV Éditorial PRSNL - Jean Luc MEDINA"
+  },
+  {
+    "slug": "nicolas-niepel",
+    "id": "69c0fd6bf289aec7e3be2fdb",
+    "title": "RDV Éditorial PRSNL - Nicolas NIEPEL"
+  },
+  {
+    "slug": "jerome-minet",
+    "id": "69368cb2d2603c9de8ec2052",
+    "title": "Jerome MINET and Valentin Cuenot"
+  },
+  {
+    "slug": "sabrina-nabet",
+    "id": "697774aa376ffdc91f9b1b6c",
+    "title": "RDV Éditorial PRSNL - Sabrina NABET"
+  },
+  {
+    "slug": "marta-hidalgo",
+    "id": "69cb78550744d986bb1a31b0",
+    "title": "RDV Éditorial PRSNL - Marta HIDALGO"
+  },
+  {
+    "slug": "nicolas-raimbault",
+    "id": "69ea18334d30cf584381dd3d",
+    "title": "RDV Éditorial PRSNL - Nicolas RAIMBAULT"
+  },
+  {
+    "slug": "pierre-braun",
+    "id": "69cba95ba249c62fcf8eb75d",
+    "title": "RDV Éditorial PRSNL - Pierre BRAUN"
+  },
+  {
+    "slug": "fabrice-boutain",
+    "id": "68dba3a4184acb9cdddc79e4",
+    "title": "Fabrice BOUTAIN x Ingrid Elbaz"
+  },
+  {
+    "slug": "margaux-grulois",
+    "id": "69b40a825c09fc9b64b2a059",
+    "title": "RDV Éditorial PRSNL - Margaux GRULOIS"
+  },
+  {
+    "slug": "yvan-macheboeuf",
+    "id": "69f0be6ef072457ff475100e",
+    "title": "RDV Éditorial PRSNL - Yvan MACHEBOEUF"
+  },
+  {
+    "slug": "anna-verz",
+    "id": "69de2c8d40ebec932a6b14f2",
+    "title": "RDV Éditorial PRSNL - Anna VERZ"
+  },
+  {
+    "slug": "christophe-tixier",
+    "id": "69cbc35a59225f9c17ebc917",
+    "title": "RDV Éditorial PRSNL - Christophe TIXIER"
+  },
+  {
+    "slug": "pascal-driess",
+    "id": "6966447c096a5c78b80d71cb",
+    "title": "Pascal Driess - Morgane"
+  },
+  {
+    "slug": "sacha-taieb",
+    "id": "6985e6b94a3c1f135afd9278",
+    "title": "RDV Éditorial PRSNL - Sacha TAIEB"
+  },
+  {
+    "slug": "loic-tap",
+    "id": "69c6aa056723f336260a4a52",
+    "title": "RDV Éditorial PRSNL - Loic TAP"
+  },
+  {
+    "slug": "yann-legallais",
+    "id": "6a0d6997e8201fd9d93535ef",
+    "title": "PPM - Yann Le Gallais x Clément"
+  }
+]
