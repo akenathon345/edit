@@ -79,8 +79,20 @@ app.use((req, res, next) => {
   });
 });
 
-// Multer for video upload
-const upload = multer({ dest: path.join(BUNDLE_TMP_DIR, 'uploads') });
+// Multer for video upload — destination callback garantit l'existence du
+// dossier À CHAQUE requête (le sweep cleanup peut l'avoir supprimé entre-temps)
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      try {
+        fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+        cb(null, UPLOADS_DIR);
+      } catch (err) {
+        cb(err);
+      }
+    },
+  }),
+});
 
 // In-memory store for run results — TTL-based eviction (1h)
 const runResults = new Map();
