@@ -497,6 +497,7 @@ Vidéo MP4
 
 ```env
 ANTHROPIC_API_KEY=sk-ant-...          # Clé API Anthropic (obligatoire)
+ANTHROPIC_WORKSPACE_ID=wrkspc_...     # Requis pour une clé identity-linked multi-workspace
 SUPABASE_URL=https://xxx.supabase.co  # URL Supabase (optionnel)
 SUPABASE_KEY=eyJ...                   # Service role key Supabase (optionnel)
 PORT=3002                             # Port du serveur (défaut: 3002)

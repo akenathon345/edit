@@ -13,6 +13,7 @@ restartPolicyMaxRetries = 3
 
 # Required env vars (set via Railway dashboard, do NOT commit them):
 #   ANTHROPIC_API_KEY
+#   ANTHROPIC_WORKSPACE_ID (for an identity-linked key that spans workspaces)
 #   SUPABASE_URL
 #   SUPABASE_KEY
 #   PORT (Railway sets this automatically)

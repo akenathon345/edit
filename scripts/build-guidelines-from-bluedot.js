@@ -20,6 +20,7 @@ require('dotenv').config({ override: true });
 const fs = require('fs');
 const path = require('path');
 const Anthropic = require('@anthropic-ai/sdk').default;
+const { getAnthropicWorkspaceHeaders } = require('../lib/anthropic-config');
 const { getSupabase } = require('../lib/supabase');
 
 const MAPPING_PATH = path.join(__dirname, 'bluedot_mapping.json');
@@ -37,7 +38,10 @@ const limit = argMap.limit ? parseInt(argMap.limit, 10) : null;
 const dryRun = argMap['dry-run'] === true;
 const startFrom = argMap.start ? parseInt(argMap.start, 10) : 0;
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+  defaultHeaders: getAnthropicWorkspaceHeaders(),
+});
 const supabase = getSupabase();
 
 // ── Helpers ──────────────────────────────────────────────────────────────

@@ -13,6 +13,7 @@ require('dotenv').config({ override: true });
 const fs = require('fs');
 const path = require('path');
 const Anthropic = require('@anthropic-ai/sdk').default;
+const { getAnthropicWorkspaceHeaders } = require('../lib/anthropic-config');
 const { getSupabase } = require('../lib/supabase');
 const { loadClientGuidelines } = require('../lib/guidelines');
 const { a35HookVisionPass } = require('../lib/agents');
@@ -55,7 +56,10 @@ async function main() {
   const { guidelines, clientName } = await loadClientGuidelines(supabase, slug);
   console.log(`Guidelines: client="${clientName}" — ${guidelines.length} chars\n`);
 
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const anthropic = new Anthropic({
+    apiKey: process.env.ANTHROPIC_API_KEY,
+    defaultHeaders: getAnthropicWorkspaceHeaders(),
+  });
 
   const t0 = Date.now();
   const result = await a35HookVisionPass(anthropic, null, null, {
